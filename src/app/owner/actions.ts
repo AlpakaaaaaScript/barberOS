@@ -15,7 +15,7 @@ export async function createBarber(form: FormData) {
        str(form, "specialty"), str(form, "bio"), num(form, "commission_rate")]);
     await sql("INSERT INTO barber_service (barber_id, service_id) SELECT $1, unnest($2::int[])", [row!.id, ids(form, "services")]);
   } catch (e) { back("/owner/barbers?new=1", { error: dbMessage(e) }); }
-  back("/owner/barbers", { ok: "Barber added. Default schedule: Tue–Sat 10:00–19:00." });
+  back("/owner/barbers", { ok: "Barber added. Default schedule: Tuesday to Saturday, 10:00 to 19:00." });
 }
 
 // UPDATE barber — SQL: UPDATE app_user, UPDATE barber, replace barber_service rows
@@ -37,7 +37,7 @@ export async function toggleBarber(form: FormData) {
   await requireRole("owner");
   const r = await one<{ is_active: boolean }>(
     "UPDATE app_user SET is_active = NOT is_active WHERE user_id = $1 AND role = 'barber' RETURNING is_active", [num(form, "id")]);
-  back("/owner/barbers", { ok: r?.is_active ? "Barber reactivated." : "Barber deactivated — hidden from booking, history kept." });
+  back("/owner/barbers", { ok: r?.is_active ? "Barber reactivated." : "Barber deactivated: hidden from booking, history kept." });
 }
 
 // ---------------------------------------------------------------- Services
@@ -64,7 +64,7 @@ export async function toggleService(form: FormData) {
 export async function deleteService(form: FormData) {
   await requireRole("owner");
   try { await sql("DELETE FROM service WHERE service_id = $1", [num(form, "id")]); }
-  catch { back("/owner/services", { error: "This service has appointment history — deactivate it instead." }); }
+  catch { back("/owner/services", { error: "This service has appointment history, so deactivate it instead." }); }
   back("/owner/services", { ok: "Service deleted." });
 }
 
@@ -111,5 +111,5 @@ export async function updateShop(form: FormData) {
       [str(form, "name"), str(form, "tagline"), str(form, "address"), str(form, "phone"), str(form, "email"),
        num(form, "cancel_window_hours"), num(form, "baht_per_point")]);
   } catch (e) { back("/owner/shop", { error: dbMessage(e) }); }
-  back("/owner/shop", { ok: "Shop information saved — customers see it immediately." });
+  back("/owner/shop", { ok: "Shop information saved. Customers see it immediately." });
 }

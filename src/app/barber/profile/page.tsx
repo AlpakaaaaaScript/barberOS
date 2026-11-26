@@ -13,7 +13,7 @@ export default async function Profile({ searchParams }: PageProps<"/barber/profi
 
   return (
     <>
-      <PageHeader eyebrow="Barber" title="Profile" />
+      <PageHeader title="Profile" />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateProfile} className="card space-y-4 p-6">

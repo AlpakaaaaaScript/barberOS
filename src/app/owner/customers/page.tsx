@@ -29,7 +29,7 @@ export default async function Customers({ searchParams }: PageProps<"/owner/cust
 
   return (
     <>
-      <PageHeader eyebrow="Owner" title="Customers" desc="Who your regulars are, what they spend and their loyalty balance." />
+      <PageHeader title="Customers" desc="Who your regulars are, what they spend and their loyalty balance." />
       <Flash ok={sp.ok} error={sp.error} />
       <form className="mb-5 flex max-w-md gap-2">
         <div className="relative flex-1">
@@ -46,10 +46,10 @@ export default async function Customers({ searchParams }: PageProps<"/owner/cust
             {rows.map((c) => (
               <tr key={c.customer_id} className={c.is_active ? "" : "opacity-60"}>
                 <td><span className="flex items-center gap-3"><Avatar name={c.full_name} size={34} />
-                  <span><b className="block">{c.full_name}</b><span className="text-xs text-muted">{c.email} · {c.phone}</span></span></span></td>
+                  <span><b className="block">{c.full_name}</b><span className="text-xs text-muted">{c.email}, {c.phone}</span></span></span></td>
                 <td className="text-right tabular-nums">{c.visits}</td>
                 <td className="text-right font-semibold tabular-nums">{money(c.spent)}</td>
-                <td className="text-sm">{c.last_visit ? fmtDate(c.last_visit) : <span className="text-muted">—</span>}</td>
+                <td className="text-sm">{c.last_visit ? fmtDate(c.last_visit) : <span className="text-muted">No visits yet</span>}</td>
                 <td className="text-right tabular-nums">{c.upcoming}</td>
                 <td>
                   <form action={setPoints} className="flex items-center gap-1">

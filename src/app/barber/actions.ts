@@ -36,7 +36,7 @@ export async function checkout(form: FormData) {
     await sql("SELECT checkout_appointment($1, $2, $3, $4::pay_method)",
       [num(form, "id"), s.userId, num(form, "tip") || 0, str(form, "method")]);
   } catch (e) { back("/barber", { error: dbMessage(e) }); }
-  back("/barber", { ok: "Payment recorded — visit completed." });
+  back("/barber", { ok: "Payment recorded, visit completed." });
 }
 
 // REPLACE weekly hours — SQL: one statement: upsert the checked days, delete the unchecked ones

@@ -23,7 +23,7 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
 
   return (
     <>
-      <PageHeader eyebrow="Barber" title="Availability" desc="Customers can only book inside your working hours and outside your time off." />
+      <PageHeader title="Availability" desc="Customers can only book inside your working hours and outside your time off." />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <form action={saveHours} className="card p-6">
@@ -55,7 +55,7 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
                 {off.map((t) => (
                   <li key={t.time_off_id} className="flex items-center justify-between gap-3 py-2.5">
                     <div>
-                      <p className="text-sm font-semibold">{fmtDate(`${t.start_date} 00:00:00`)}{t.end_date !== t.start_date && ` – ${fmtDate(`${t.end_date} 00:00:00`)}`}</p>
+                      <p className="text-sm font-semibold">{fmtDate(`${t.start_date} 00:00:00`)}{t.end_date !== t.start_date && ` to ${fmtDate(`${t.end_date} 00:00:00`)}`}</p>
                       {t.reason && <p className="text-xs text-muted">{t.reason}</p>}
                     </div>
                     <form action={deleteTimeOff}><input type="hidden" name="id" value={t.time_off_id} /><button className="btn btn-ghost btn-sm" aria-label="Delete time off"><Trash2 size={14} /></button></form>
@@ -77,7 +77,7 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
             <h2 className="font-display text-lg font-semibold">Services you offer</h2>
             {!services.length ? <p className="mt-3 text-sm text-muted">None yet. The owner assigns services.</p> : (
               <div className="mt-3 flex flex-wrap gap-2">
-                {services.map((v) => <span key={v.name} className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold">{v.name} · {v.duration_min} min</span>)}
+                {services.map((v) => <span key={v.name} className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold">{v.name}, {v.duration_min} min</span>)}
               </div>
             )}
           </div>

@@ -12,7 +12,7 @@ export default async function ShopSettings({ searchParams }: PageProps<"/owner/s
 
   return (
     <>
-      <PageHeader eyebrow="Owner" title="Shop information" desc="What customers see on the website, and the rules the booking system follows." />
+      <PageHeader title="Shop information" desc="What customers see on the website, and the rules the booking system follows." />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateShop} className="card space-y-6 p-6">
@@ -52,7 +52,7 @@ export default async function ShopSettings({ searchParams }: PageProps<"/owner/s
             {hours.map((h) => (
               <li key={h.day} className="flex justify-between py-2">
                 <span>{h.day}</span>
-                {h.open ? <span className="font-semibold tabular-nums">{h.open} – {h.close} <span className="font-normal text-muted">· {h.barbers}</span></span> : <span className="text-muted">Closed</span>}
+                {h.open ? <span className="font-semibold tabular-nums">{h.open} to {h.close} <span className="font-normal text-muted">({h.barbers})</span></span> : <span className="text-muted">Closed</span>}
               </li>
             ))}
           </ul>

@@ -23,7 +23,7 @@ export default async function Reschedule({ params, searchParams }: PageProps<"/c
   return (
     <>
       <Link href="/customer/appointments" className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-muted hover:text-ink"><ChevronLeft size={16} /> My appointments</Link>
-      <PageHeader eyebrow="Reschedule" title="Move your appointment" desc="Same barber and service — just a new time." />
+      <PageHeader title="Move your appointment" desc="Same barber and service, just a new time." />
       <Flash error={sp.error} />
       <div className="card mb-6 flex items-center gap-4 p-5">
         <Avatar name={a.barber_name} size={44} />

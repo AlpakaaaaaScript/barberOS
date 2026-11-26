@@ -34,7 +34,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
 
   return (
     <>
-      <PageHeader eyebrow="Customer" title="My reviews" desc="Rate completed visits — it helps other customers choose and helps barbers improve." />
+      <PageHeader title="My reviews" desc="Rate completed visits. It helps other customers choose and helps barbers improve." />
       <Flash ok={sp.ok} error={sp.error} />
 
       {pending.length > 0 && (
@@ -46,7 +46,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
                 <input type="hidden" name="appointment" value={r.appointment_id} />
                 <div className="flex items-center gap-3">
                   <Avatar name={r.barber_name} size={38} />
-                  <div><p className="font-semibold">{r.service_name}</p><p className="text-sm text-muted">{r.barber_name} · {fmtDate(r.start_at)}</p></div>
+                  <div><p className="font-semibold">{r.service_name}</p><p className="text-sm text-muted">{r.barber_name}, {fmtDate(r.start_at)}</p></div>
                 </div>
                 <div className="mt-4"><RatingInput /></div>
                 <textarea name="comment" rows={2} className="input mt-3" placeholder="How was your visit?" />
@@ -63,7 +63,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
           {done.map((r) => r.review_id === editing ? (
             <form key={r.review_id} action={saveReview} className="card p-5 ring-2 ring-brand">
               <input type="hidden" name="appointment" value={r.appointment_id} />
-              <p className="font-semibold">{r.service_name} · {r.barber_name}</p>
+              <p className="font-semibold">{r.service_name}, {r.barber_name}</p>
               <div className="mt-3"><RatingInput value={r.rating!} /></div>
               <textarea name="comment" rows={2} defaultValue={r.comment ?? ""} className="input mt-3" />
               <div className="mt-3 flex gap-2"><button className="btn btn-primary btn-sm">Save changes</button><a href="/customer/reviews" className="btn btn-ghost btn-sm">Cancel</a></div>
@@ -73,7 +73,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
               <Avatar name={r.barber_name} size={38} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2"><p className="font-semibold">{r.barber_name}</p><Stars value={r.rating!} /></div>
-                <p className="text-xs text-muted">{r.service_name} · {fmtDate(r.start_at)}</p>
+                <p className="text-xs text-muted">{r.service_name}, {fmtDate(r.start_at)}</p>
                 {r.comment && <p className="mt-2 text-sm">“{r.comment}”</p>}
               </div>
               <div className="flex gap-2">

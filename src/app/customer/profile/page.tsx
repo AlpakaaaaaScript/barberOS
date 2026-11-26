@@ -13,13 +13,13 @@ export default async function Profile({ searchParams }: PageProps<"/customer/pro
 
   return (
     <>
-      <PageHeader eyebrow="Customer" title="Profile & settings" />
+      <PageHeader title="Profile & settings" />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateProfile} className="card space-y-4 p-6">
           <div className="mb-2 flex items-center gap-4">
             <Avatar name={me.full_name} size={56} />
-            <div><p className="font-display text-xl font-semibold">{me.full_name}</p><p className="text-sm text-muted">Member since {me.created_at.slice(0, 10)} · {me.loyalty_points} pts</p></div>
+            <div><p className="font-display text-xl font-semibold">{me.full_name}</p><p className="text-sm text-muted">Member since {me.created_at.slice(0, 10)}, {me.loyalty_points} pts</p></div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Full name"><input name="full_name" defaultValue={me.full_name} required className="input" /></Field>

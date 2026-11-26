@@ -22,7 +22,7 @@ export default async function Today({ searchParams }: PageProps<"/barber">) {
 
   return (
     <>
-      <PageHeader eyebrow="Barber" title="Today"
+      <PageHeader title="Today"
         desc={new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -44,7 +44,7 @@ export default async function Today({ searchParams }: PageProps<"/barber">) {
               </div>
               <div className="flex items-center gap-3 text-right">
                 {a.status === "completed" ? (
-                  <span className="text-sm text-muted">Paid <b className="text-ink">{money(a.paid_amount)}</b> + {money(a.tip)} tip · <span className="uppercase">{a.method}</span></span>
+                  <span className="text-sm text-muted">Paid <b className="text-ink">{money(a.paid_amount)}</b> + {money(a.tip)} tip, <span className="capitalize">{a.method}</span></span>
                 ) : <span className="font-display font-semibold">{money(a.price)}</span>}
                 <Badge status={a.status} />
               </div>

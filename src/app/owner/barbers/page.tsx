@@ -26,7 +26,7 @@ export default async function Barbers({ searchParams }: PageProps<"/owner/barber
 
   return (
     <>
-      <PageHeader eyebrow="Owner" title="Barbers" desc="Hire, edit and deactivate staff. Deactivated barbers disappear from booking but keep their history."
+      <PageHeader title="Barbers" desc="Hire, edit and deactivate staff. Deactivated barbers disappear from booking but keep their history."
         action={<Link href="/owner/barbers?new=1" className="btn btn-brand"><Plus size={16} /> Add barber</Link>} />
       <Flash ok={sp.ok} error={sp.error} />
 
@@ -70,8 +70,8 @@ export default async function Barbers({ searchParams }: PageProps<"/owner/barber
             {barbers.map((b) => (
               <tr key={b.barber_id} className={b.is_active ? "" : "opacity-60"}>
                 <td><span className="flex items-center gap-3"><Avatar name={b.full_name} size={36} />
-                  <span><b className="block">{b.full_name}</b><span className="text-xs text-muted">{b.specialty} · {b.email}</span></span></span></td>
-                <td className="max-w-56"><span className="text-xs text-muted">{b.services.map((id) => svcNames.get(id)).filter(Boolean).join(", ") || "—"}</span></td>
+                  <span><b className="block">{b.full_name}</b><span className="text-xs text-muted">{b.specialty}, {b.email}</span></span></span></td>
+                <td className="max-w-56"><span className="text-xs text-muted">{b.services.map((id) => svcNames.get(id)).filter(Boolean).join(", ") || "None"}</span></td>
                 <td className="text-right tabular-nums">{b.commission_rate}%</td>
                 <td><span className="flex items-center gap-1.5"><Stars value={b.avg_rating} size={12} /><span className="text-xs">{b.avg_rating} ({b.review_count})</span></span></td>
                 <td className="text-right tabular-nums">{b.completed_count}</td>

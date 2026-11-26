@@ -23,7 +23,7 @@ export default async function Services({ searchParams }: PageProps<"/owner/servi
 
   return (
     <>
-      <PageHeader eyebrow="Owner" title="Services & pricing" desc="Price changes apply to new bookings. Existing bookings keep the price they were booked at."
+      <PageHeader title="Services & pricing" desc="Price changes apply to new bookings. Existing bookings keep the price they were booked at."
         action={<Link href="/owner/services?new=1" className="btn btn-brand"><Plus size={16} /> Add service</Link>} />
       <Flash ok={sp.ok} error={sp.error} />
 
@@ -58,7 +58,7 @@ export default async function Services({ searchParams }: PageProps<"/owner/servi
             {rows.map((s) => (
               <tr key={s.service_id} className={s.is_active ? "" : "opacity-60"}>
                 <td><b className="block">{s.name}</b><span className="text-xs text-muted">{s.description}</span></td>
-                <td><span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-brand">{s.category}</span></td>
+                <td><span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-ink">{s.category}</span></td>
                 <td className="text-right tabular-nums">{s.duration_min} min</td>
                 <td className="text-right font-semibold tabular-nums">{money(s.price)}</td>
                 <td className="text-right tabular-nums">{s.barbers}</td>

@@ -43,7 +43,7 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
 
   return (
     <>
-      <PageHeader eyebrow="Barber" title="Earnings & reviews" desc="Commission applies to service revenue; tips are 100% yours." />
+      <PageHeader title="Earnings & reviews" desc="Commission applies to service revenue; tips are 100% yours." />
       <div className="mb-6 inline-flex flex-wrap rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
         {RANGES.map(([k, label]) => (
           <Link key={k} href={`/barber/earnings?range=${k}`} className={`rounded-lg px-4 py-1.5 ${range === k ? "bg-ink text-surface" : "text-muted hover:text-ink"}`}>{label}</Link>
@@ -61,7 +61,7 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="card p-6">
           <div className="flex items-end justify-between">
-            <h2 className="font-display text-lg font-semibold">Daily take-home · last 14 days</h2>
+            <h2 className="font-display text-lg font-semibold">Daily take-home, last 14 days</h2>
             <span className="text-sm text-muted">{money(daily.reduce((a, d) => a + d.take_home, 0))}</span>
           </div>
           <div className="mt-6 flex h-52 items-end gap-[2px]" role="img" aria-label="Daily take-home for the last 14 days">
@@ -70,7 +70,7 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
                 <div className="rounded-t-[4px] bg-brand transition-opacity group-hover:opacity-80" style={{ height: `${(d.take_home / max) * 88}%`, minHeight: d.take_home ? 2 : 0 }} />
                 <span className="mt-1.5 text-[10px] text-muted">{d.day.slice(8)}</span>
                 <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded-lg bg-ink px-2 py-1 text-xs whitespace-nowrap text-surface group-hover:block">
-                  <b>{money(d.take_home)}</b> · {fmtDate(`${d.day} 00:00:00`)}
+                  <b>{money(d.take_home)}</b>, {fmtDate(`${d.day} 00:00:00`)}
                 </div>
               </div>
             ))}
@@ -86,7 +86,7 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
             <ul className="mt-3 divide-y divide-line">
               {reviews.map((r) => (
                 <li key={r.review_id} className="py-3">
-                  <div className="flex items-center justify-between"><Stars value={r.rating} /><span className="text-xs text-muted">{r.first_name} · {fmtDate(r.created_at)}</span></div>
+                  <div className="flex items-center justify-between"><Stars value={r.rating} /><span className="text-xs text-muted">{r.first_name}, {fmtDate(r.created_at)}</span></div>
                   {r.comment && <p className="mt-1.5 text-sm">{r.comment}</p>}
                 </li>
               ))}

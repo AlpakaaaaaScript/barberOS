@@ -40,12 +40,12 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
     const services = await sql<Svc>("SELECT * FROM service WHERE is_active ORDER BY category, price");
     return (
       <>
-        <PageHeader eyebrow="Book appointment" title="Choose a service" desc="Prices are fixed when you book — no surprises at the counter." />
+        <PageHeader title="Choose a service" desc="Prices are fixed when you book, so there are no surprises at the counter." />
         <Steps step={0} />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
-            <Link key={s.service_id} href={`/customer/book?service=${s.service_id}`} className="card group flex flex-col p-5 transition hover:-translate-y-0.5 hover:border-brand">
-              <span className="w-fit rounded-full bg-brand-soft px-2 py-0.5 text-[11px] font-semibold text-brand">{s.category}</span>
+            <Link key={s.service_id} href={`/customer/book?service=${s.service_id}`} className="card group flex flex-col p-5 transition-colors hover:border-brand motion-safe:transition motion-safe:hover:-translate-y-0.5">
+              <span className="w-fit rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-ink">{s.category}</span>
               <h3 className="mt-3 font-display text-lg font-semibold">{s.name}</h3>
               <p className="mt-1 flex-1 text-sm text-muted">{s.description}</p>
               <div className="mt-4 flex items-center justify-between border-t border-line pt-3 text-sm">
@@ -69,12 +69,12 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
        WHERE bs.service_id = $1 AND v.is_active ORDER BY v.avg_rating DESC`, [serviceId]);
     return (
       <>
-        <PageHeader eyebrow="Book appointment" title="Choose your barber" desc={`Barbers who offer ${service.name}.`} />
+        <PageHeader title="Choose your barber" desc={`Barbers who offer ${service.name}.`} />
         <Steps step={1} />
         <Link href="/customer/book" className="mb-5 inline-flex items-center gap-1 text-sm font-semibold text-muted hover:text-ink"><ChevronLeft size={16} /> Change service</Link>
         <div className="grid gap-4 sm:grid-cols-2">
           {barbers.map((b) => (
-            <Link key={b.barber_id} href={`/customer/book?service=${serviceId}&barber=${b.barber_id}`} className="card flex items-center gap-4 p-5 transition hover:-translate-y-0.5 hover:border-brand">
+            <Link key={b.barber_id} href={`/customer/book?service=${serviceId}&barber=${b.barber_id}`} className="card flex items-center gap-4 p-5 transition-colors hover:border-brand motion-safe:transition motion-safe:hover:-translate-y-0.5">
               <Avatar name={b.full_name} size={56} />
               <div className="min-w-0 flex-1">
                 <h3 className="font-display text-lg font-semibold">{b.full_name}</h3>
@@ -95,7 +95,7 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
 
   return (
     <>
-      <PageHeader eyebrow="Book appointment" title="Pick a date & time" desc="Only genuinely free slots are shown — the database prevents double bookings." />
+      <PageHeader title="Pick a date & time" desc="Only genuinely free slots are shown. The database prevents double bookings." />
       <Steps step={2} />
       <Link href={`/customer/book?service=${serviceId}`} className="mb-5 inline-flex items-center gap-1 text-sm font-semibold text-muted hover:text-ink"><ChevronLeft size={16} /> Change barber</Link>
       <Flash error={sp.error} />
@@ -109,7 +109,7 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
             <DayPicker selected={date} href={(d) => `/customer/book?service=${serviceId}&barber=${barberId}&date=${d}`} />
           </div>
           <div>
-            <p className="label">Available times · {fmtDateLong(date + " 00:00:00")}</p>
+            <p className="label">Available times, {fmtDateLong(date + " 00:00:00")}</p>
             <SlotGrid slots={slots} />
           </div>
           <label className="block">
@@ -119,8 +119,8 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
         </form>
 
         <aside className="card h-fit p-6">
-          <p className="label">Booking summary</p>
-          <h3 className="mt-2 font-display text-xl font-semibold">{service.name}</h3>
+          <h2 className="font-display text-xl font-semibold">Booking summary</h2>
+          <p className="mt-2 font-semibold">{service.name}</p>
           <p className="text-sm text-muted">{service.duration_min} minutes</p>
           <div className="mt-4 flex items-center gap-3 border-y border-line py-4">
             <Avatar name={barber.full_name} size={40} />

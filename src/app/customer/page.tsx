@@ -33,11 +33,11 @@ export default async function CustomerHome({ searchParams }: PageProps<"/custome
   return (
     <>
       <Flash ok={ok} />
-      <PageHeader eyebrow="Customer" title={`Hello, ${s.name.split(" ")[0]}`} desc="Here’s what’s coming up and how your loyalty points are growing."
+      <PageHeader title={`Hello, ${s.name.split(" ")[0]}`} desc="Here’s what’s coming up and how your loyalty points are growing."
         action={<Link href="/customer/book" className="btn btn-brand"><CalendarPlus size={16} /> Book appointment</Link>} />
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Loyalty points" value={me.loyalty_points} sub={`${tier} member · 1 pt per ฿${shop.baht_per_point}`} icon={<Award size={18} />} />
+        <StatCard label="Loyalty points" value={me.loyalty_points} sub={`${tier} member, 1 pt per ฿${shop.baht_per_point}`} icon={<Award size={18} />} />
         <StatCard label="Visits" value={me.visits} sub="Completed appointments" icon={<Scissors size={18} />} />
         <StatCard label="Total spent" value={money(me.spent)} sub="Including tips" icon={<Wallet size={18} />} />
       </div>
@@ -49,13 +49,13 @@ export default async function CustomerHome({ searchParams }: PageProps<"/custome
             <div className="p-6">
               <div className="flex items-start gap-4">
                 <div className="grid w-20 shrink-0 place-items-center rounded-xl bg-side py-3 text-side-ink">
-                  <span className="text-xs uppercase tracking-wider text-side-muted">{fmtDate(next.start_at).split(" ")[0]}</span>
+                  <span className="text-xs text-side-muted">{fmtDate(next.start_at).split(" ")[0]}</span>
                   <span className="font-display text-3xl font-semibold">{fmtDate(next.start_at).split(" ")[1]}</span>
                   <span className="text-xs text-side-muted">{fmtDate(next.start_at).split(" ")[2]}</span>
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="font-display text-xl font-semibold">{next.service_name}</p>
-                  <p className="mt-1 flex items-center gap-1.5 text-sm text-muted"><Clock size={14} /> {fmtDateLong(next.start_at)} · {fmtTime(next.start_at)} · {next.duration_min} min</p>
+                  <p className="mt-1 flex items-center gap-1.5 text-sm text-muted"><Clock size={14} /> {fmtDateLong(next.start_at)}, {fmtTime(next.start_at)}, {next.duration_min} min</p>
                   <div className="mt-3 flex items-center gap-2 text-sm"><Avatar name={next.barber_name} size={26} /> with <b>{next.barber_name}</b></div>
                 </div>
                 <span className="font-display text-xl font-semibold">{money(next.price)}</span>
@@ -80,7 +80,7 @@ export default async function CustomerHome({ searchParams }: PageProps<"/custome
               <li key={a.appointment_id} className="flex items-center gap-3 border-b border-line px-6 py-3 last:border-0">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{a.service_name}</p>
-                  <p className="text-xs text-muted">{fmtDate(a.start_at)} · {a.barber_name}</p>
+                  <p className="text-xs text-muted">{fmtDate(a.start_at)}, {a.barber_name}</p>
                 </div>
                 <Badge status={a.status} />
               </li>

@@ -1,17 +1,20 @@
 import type { ReactNode } from "react";
+import { MapPin } from "lucide-react";
+import { getShop } from "@/lib/shop";
 import { Logo } from "./shell";
 
-export function AuthLayout({ title, desc, children }: { title: string; desc: string; children: ReactNode }) {
+export async function AuthLayout({ title, desc, children }: { title: string; desc: string; children: ReactNode }) {
+  const shop = await getShop();
   return (
     <div className="grid min-h-screen md:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-side p-12 text-side-ink md:flex">
-        <div className="wf-hide pointer-events-none absolute inset-0 opacity-[0.07]"
-          style={{ backgroundImage: "repeating-linear-gradient(135deg, #a5372a 0 18px, transparent 18px 36px, #e9e2d6 36px 54px, transparent 54px 72px)" }} />
+        <div className="wf-hide pole-stripes pointer-events-none absolute inset-0 opacity-[0.07]" />
         <div className="relative"><Logo light /></div>
-        <blockquote className="relative">
-          <p className="font-display text-3xl leading-snug font-medium">“Booked my fade on the bus, walked in at 6 sharp, out by 6:45. That’s how a barber shop should work.”</p>
-          <footer className="mt-4 text-sm text-side-muted">James C. · regular since 2021</footer>
-        </blockquote>
+        <div className="relative">
+          <p className="font-display text-5xl leading-tight font-semibold">{shop.tagline ?? shop.name}</p>
+          <p className="mt-6 flex items-center gap-2 text-side-muted"><MapPin size={16} className="text-side-accent" /> {shop.address}</p>
+          <p className="mt-1 text-side-muted">Free cancellation up to {shop.cancel_window_hours} hours before.</p>
+        </div>
       </div>
       <div className="flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">

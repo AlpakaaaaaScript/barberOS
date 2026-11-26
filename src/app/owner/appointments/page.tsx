@@ -31,7 +31,7 @@ export default async function OwnerAppointments({ searchParams }: PageProps<"/ow
 
   return (
     <>
-      <PageHeader eyebrow="Owner" title="Appointments" desc="Every booking in the shop. Filter, follow up and override statuses when needed." />
+      <PageHeader title="Appointments" desc="Every booking in the shop. Filter, follow up and override statuses when needed." />
       <Flash ok={sp.ok} error={sp.error} />
 
       <form className="card mb-5 grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-[repeat(5,1fr)_auto]">
@@ -66,7 +66,7 @@ export default async function OwnerAppointments({ searchParams }: PageProps<"/ow
                   <td>{a.service_name}</td>
                   <td>{a.barber_name}</td>
                   <td className="text-right tabular-nums">{money(a.price)}</td>
-                  <td className="text-xs">{a.paid_amount != null ? <><b className="uppercase">{a.method}</b> · tip {money(a.tip)}</> : <span className="text-muted">—</span>}</td>
+                  <td className="text-xs">{a.paid_amount != null ? <><b className="capitalize">{a.method}</b>, tip {money(a.tip)}</> : <span className="text-muted">Not paid</span>}</td>
                   <td><Badge status={a.status} /></td>
                   <td>
                     {(a.status === "booked" || a.status === "in_progress") && (

@@ -10,15 +10,15 @@ export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="flex items-center gap-2.5">
       <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden className="shrink-0">
-        <rect x="8" y="1" width="12" height="26" rx="6" fill={light ? "#e9e2d6" : "#17140f"} />
+        <rect x="8" y="1" width="12" height="26" rx="6" fill={light ? "var(--side-ink)" : "var(--ink)"} />
         <clipPath id="pole"><rect x="10" y="4" width="8" height="20" rx="4" /></clipPath>
         <g clipPath="url(#pole)">
-          <rect x="10" y="4" width="8" height="20" fill="#fff" />
-          {[0, 6, 12, 18].map((y) => <path key={y} d={`M6 ${y + 8} l16 -8 v4 l-16 8z`} fill="#a5372a" />)}
+          <rect x="10" y="4" width="8" height="20" fill="var(--surface)" />
+          {[0, 6, 12, 18].map((y) => <path key={y} d={`M6 ${y + 8} l16 -8 v4 l-16 8z`} fill="var(--pole)" />)}
         </g>
       </svg>
       <span className={`font-display text-xl font-semibold tracking-tight ${light ? "text-side-ink" : "text-ink"}`}>
-        barber<span className="text-brand">OS</span>
+        barber<span className={light ? "text-side-accent" : "text-brand"}>OS</span>
       </span>
     </Link>
   );
@@ -32,7 +32,7 @@ export function Shell({ session, nav, children }: { session: Session; nav: NavIt
       <aside className="sidebar hidden w-64 shrink-0 bg-side md:block">
        <div className="sticky top-0 flex h-screen flex-col px-4 py-6">
         <div className="px-2"><Logo light /></div>
-        <p className="mt-8 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-side-muted">{ROLE_LABEL[session.role]} portal</p>
+        <p className="mt-8 px-3 text-xs font-semibold text-side-muted">{ROLE_LABEL[session.role]} portal</p>
         <nav className="mt-3 flex flex-col gap-1">
           {nav.map((n) => <NavLink key={n.href} {...n} />)}
         </nav>

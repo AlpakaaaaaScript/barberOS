@@ -24,7 +24,7 @@ export default async function MyAppointments({ searchParams }: PageProps<"/custo
 
   return (
     <>
-      <PageHeader eyebrow="Customer" title="My appointments" desc={`Reschedule or cancel up to ${shop.cancel_window_hours} hours before. Review visits once they’re complete.`}
+      <PageHeader title="My appointments" desc={`Reschedule or cancel up to ${shop.cancel_window_hours} hours before. Review visits once they’re complete.`}
         action={<Link href="/customer/book" className="btn btn-brand"><CalendarPlus size={16} /> New booking</Link>} />
       <Flash ok={sp.ok} error={sp.error} />
       <div className="mb-5 inline-flex rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
@@ -48,7 +48,7 @@ export default async function MyAppointments({ searchParams }: PageProps<"/custo
                 <Avatar name={a.barber_name} size={38} />
                 <div>
                   <p className="font-semibold">{a.service_name}</p>
-                  <p className="text-sm text-muted">with {a.barber_name} · {a.duration_min} min</p>
+                  <p className="text-sm text-muted">with {a.barber_name}, {a.duration_min} min</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">

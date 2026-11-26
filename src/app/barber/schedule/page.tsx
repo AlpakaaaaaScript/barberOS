@@ -21,7 +21,7 @@ export default async function Schedule({ searchParams }: PageProps<"/barber/sche
 
   return (
     <>
-      <PageHeader eyebrow="Barber" title="Schedule" desc={past ? "Your last 7 days." : "Your next 14 days, including today."} />
+      <PageHeader title="Schedule" desc={past ? "Your last 7 days." : "Your next 14 days, including today."} />
       <div className="mb-5 inline-flex rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
         {[["upcoming", "Next 14 days", "/barber/schedule"], ["past", "Past 7 days", "/barber/schedule?range=past"]].map(([k, label, href]) => (
           <Link key={k} href={href} className={`rounded-lg px-4 py-1.5 ${(k === "past") === past ? "bg-ink text-surface" : "text-muted hover:text-ink"}`}>{label}</Link>
@@ -36,7 +36,7 @@ export default async function Schedule({ searchParams }: PageProps<"/barber/sche
                 {list.map((a) => (
                   <div key={a.appointment_id} className="flex flex-wrap items-center gap-4 px-5 py-3.5">
                     <span className="w-24 shrink-0 font-display font-semibold">{fmtTime(a.start_at)}</span>
-                    <div className="min-w-48 flex-1"><p className="font-semibold">{a.customer_name}</p><p className="text-sm text-muted">{a.service_name} · {a.duration_min} min</p></div>
+                    <div className="min-w-48 flex-1"><p className="font-semibold">{a.customer_name}</p><p className="text-sm text-muted">{a.service_name}, {a.duration_min} min</p></div>
                     <span className="font-display font-semibold">{money(a.price)}</span>
                     <Badge status={a.status} />
                   </div>

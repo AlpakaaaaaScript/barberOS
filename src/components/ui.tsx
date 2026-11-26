@@ -2,11 +2,10 @@ import type { ReactNode } from "react";
 import { CheckCircle2, AlertCircle, Star } from "lucide-react";
 import { initials } from "@/lib/format";
 
-export function PageHeader({ eyebrow, title, desc, action }: { eyebrow?: string; title: string; desc?: string; action?: ReactNode }) {
+export function PageHeader({ title, desc, action }: { title: string; desc?: string; action?: ReactNode }) {
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        {eyebrow && <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand">{eyebrow}</p>}
         <h1 className="font-display text-3xl font-semibold tracking-tight">{title}</h1>
         {desc && <p className="mt-1.5 max-w-2xl text-sm text-muted">{desc}</p>}
       </div>
@@ -30,7 +29,7 @@ export function StatCard({ label, value, sub, icon }: { label: string; value: Re
   return (
     <div className="card p-5">
       <div className="flex items-center justify-between text-muted">
-        <span className="text-xs font-semibold uppercase tracking-[0.08em]">{label}</span>
+        <span className="text-sm font-medium">{label}</span>
         {icon}
       </div>
       <div className="mt-3 font-display text-3xl font-semibold tracking-tight">{value}</div>
@@ -57,11 +56,11 @@ export function Badge({ status, children }: { status: string; children?: ReactNo
   );
 }
 
-const TONES = ["#b0802f", "#2f6b4f", "#a5372a", "#2c5282", "#6b4f8a", "#3d6d73"];
+const TONES = [1, 2, 3, 4, 5, 6].map((n) => `var(--tone-${n})`);
 export function Avatar({ name, size = 40 }: { name: string; size?: number }) {
   const tone = TONES[[...name].reduce((a, c) => a + c.charCodeAt(0), 0) % TONES.length];
   return (
-    <span className="wf-img inline-grid shrink-0 place-items-center rounded-full font-semibold text-white"
+    <span className="wf-img inline-grid shrink-0 place-items-center rounded-full font-semibold text-surface"
       style={{ width: size, height: size, background: tone, fontSize: size * 0.36 }}>
       <span>{initials(name)}</span>
     </span>
