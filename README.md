@@ -2,6 +2,8 @@
 
 Next.js 16 + PostgreSQL 17 (raw SQL via `pg`, PL/pgSQL functions & triggers).
 
+**Live:** https://barberos-blue.vercel.app (Vercel + Neon Postgres; every push to `main` deploys, and `npm run build` seeds an empty database once via `scripts/db-init.mjs`).
+
 ## Run
 ```bash
 npm install
