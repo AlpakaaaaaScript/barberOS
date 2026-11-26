@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
+import { notFound } from "next/navigation";
 import { one, sql } from "@/lib/db";
 import { requireRole } from "@/lib/session";
 import { fmtDateLong, fmtTime, isoDay } from "@/lib/format";

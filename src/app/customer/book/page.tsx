@@ -18,7 +18,7 @@ function Steps({ step }: { step: number }) {
       {labels.map((l, i) => (
         <li key={l} className="flex items-center gap-2">
           <span className={`grid size-7 place-items-center rounded-full text-xs font-bold ${
-            i < step ? "bg-ok text-white" : i === step ? "bg-ink text-surface" : "bg-surface-2 text-muted border border-line"}`}>
+            i < step ? "bg-accent-soft text-accent-soft-ink" : i === step ? "bg-ink text-surface" : "bg-surface-2 text-muted border border-line"}`}>
             {i < step ? <Check size={14} /> : i + 1}
           </span>
           <span className={i === step ? "font-semibold" : "text-muted"}>{l}</span>
@@ -45,12 +45,12 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
             <Link key={s.service_id} href={`/customer/book?service=${s.service_id}`} className="card group flex flex-col p-5 transition-colors hover:border-brand motion-safe:transition motion-safe:hover:-translate-y-0.5">
-              <span className="w-fit rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-ink">{s.category}</span>
-              <h3 className="mt-3 font-display text-lg font-semibold">{s.name}</h3>
+              <span className="tag w-fit">{s.category}</span>
+              <h3 className="mt-3 font-display text-lg font-bold">{s.name}</h3>
               <p className="mt-1 flex-1 text-sm text-muted">{s.description}</p>
               <div className="mt-4 flex items-center justify-between border-t border-line pt-3 text-sm">
                 <span className="flex items-center gap-1.5 text-muted"><Clock size={14} /> {s.duration_min} min</span>
-                <span className="font-display text-lg font-semibold">{money(s.price)}</span>
+                <span className="font-display text-lg font-bold">{money(s.price)}</span>
               </div>
             </Link>
           ))}
@@ -77,8 +77,8 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
             <Link key={b.barber_id} href={`/customer/book?service=${serviceId}&barber=${b.barber_id}`} className="card flex items-center gap-4 p-5 transition-colors hover:border-brand motion-safe:transition motion-safe:hover:-translate-y-0.5">
               <Avatar name={b.full_name} size={56} />
               <div className="min-w-0 flex-1">
-                <h3 className="font-display text-lg font-semibold">{b.full_name}</h3>
-                <p className="text-sm text-brand">{b.specialty}</p>
+                <h3 className="font-display text-lg font-bold">{b.full_name}</h3>
+                <p className="text-sm text-ink-2">{b.specialty}</p>
                 <div className="mt-1 flex items-center gap-1.5 text-sm"><Stars value={b.avg_rating} /><b>{b.avg_rating}</b><span className="text-muted">({b.review_count} reviews)</span></div>
               </div>
             </Link>
@@ -99,7 +99,7 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
       <Steps step={2} />
       <Link href={`/customer/book?service=${serviceId}`} className="mb-5 inline-flex items-center gap-1 text-sm font-semibold text-muted hover:text-ink"><ChevronLeft size={16} /> Change barber</Link>
       <Flash error={sp.error} />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <form action={bookAppointment} id="book" className="card space-y-6 p-6">
           <input type="hidden" name="service" value={serviceId} />
           <input type="hidden" name="barber" value={barberId} />
@@ -119,14 +119,14 @@ export default async function Book({ searchParams }: PageProps<"/customer/book">
         </form>
 
         <aside className="card h-fit p-6">
-          <h2 className="font-display text-xl font-semibold">Booking summary</h2>
+          <h2 className="font-display text-xl font-bold">Booking summary</h2>
           <p className="mt-2 font-semibold">{service.name}</p>
           <p className="text-sm text-muted">{service.duration_min} minutes</p>
           <div className="mt-4 flex items-center gap-3 border-y border-line py-4">
             <Avatar name={barber.full_name} size={40} />
             <div><p className="text-sm font-semibold">{barber.full_name}</p><p className="text-xs text-muted">{barber.specialty}</p></div>
           </div>
-          <div className="mt-4 flex items-center justify-between"><span className="text-sm text-muted">Total (pay at shop)</span><span className="font-display text-2xl font-semibold">{money(service.price)}</span></div>
+          <div className="mt-4 flex items-center justify-between"><span className="text-sm text-muted">Total (pay at shop)</span><span className="font-display text-2xl font-bold">{money(service.price)}</span></div>
           <p className="mt-1 text-xs text-muted">Earn {Math.floor(service.price / shop.baht_per_point)} loyalty points</p>
           <button form="book" disabled={!slots.length} className="btn btn-brand mt-5 w-full py-3 disabled:opacity-40">Confirm booking</button>
           <p className="mt-3 text-center text-xs text-muted">Free cancellation up to {shop.cancel_window_hours} hours before</p>

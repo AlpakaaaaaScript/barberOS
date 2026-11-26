@@ -66,7 +66,7 @@ export default async function OwnerAppointments({ searchParams }: PageProps<"/ow
                   <td>{a.service_name}</td>
                   <td>{a.barber_name}</td>
                   <td className="text-right tabular-nums">{money(a.price)}</td>
-                  <td className="text-xs">{a.paid_amount != null ? <><b className="capitalize">{a.method}</b>, tip {money(a.tip)}</> : <span className="text-muted">Not paid</span>}</td>
+                  <td className="text-xs">{a.paid_amount != null ? <><b className="capitalize">{a.method === "qr" ? "QR" : a.method}</b>, tip {money(a.tip)}</> : <span className="text-muted">Not paid</span>}</td>
                   <td><Badge status={a.status} /></td>
                   <td>
                     {(a.status === "booked" || a.status === "in_progress") && (

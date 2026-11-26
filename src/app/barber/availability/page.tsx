@@ -1,5 +1,5 @@
-import { Trash2 } from "lucide-react";
 import { sql } from "@/lib/db";
+import { Trash2 } from "lucide-react";
 import { requireRole } from "@/lib/session";
 import { fmtDate, WEEKDAYS } from "@/lib/format";
 import { Field, Flash, PageHeader } from "@/components/ui";
@@ -25,10 +25,10 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
     <>
       <PageHeader title="Availability" desc="Customers can only book inside your working hours and outside your time off." />
       <Flash ok={sp.ok} error={sp.error} />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <form action={saveHours} className="card p-6">
-          <h2 className="font-display text-lg font-semibold">Weekly working hours</h2>
-          <table className="table mt-3 w-full">
+          <h2 className="font-display text-lg font-bold">Weekly working hours</h2>
+          <div className="mt-3 overflow-x-auto"><table className="table w-full">
             <thead><tr><th className="text-left">Day</th><th className="text-left">Working</th><th className="text-left">Start</th><th className="text-left">End</th></tr></thead>
             <tbody>
               {order.map((d) => {
@@ -43,13 +43,13 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
           <button className="btn btn-primary mt-5">Save working hours</button>
         </form>
 
         <div className="space-y-6">
           <div className="card p-6">
-            <h2 className="font-display text-lg font-semibold">Time off</h2>
+            <h2 className="font-display text-lg font-bold">Time off</h2>
             {!off.length ? <p className="mt-3 text-sm text-muted">No time off scheduled.</p> : (
               <ul className="mt-3 divide-y divide-line">
                 {off.map((t) => (
@@ -65,7 +65,7 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
             )}
           </div>
           <form action={addTimeOff} className="card space-y-4 p-6">
-            <h2 className="font-display text-lg font-semibold">Add time off</h2>
+            <h2 className="font-display text-lg font-bold">Add time off</h2>
             <div className="grid grid-cols-2 gap-3">
               <Field label="From"><input type="date" name="start_date" required className="input" /></Field>
               <Field label="To"><input type="date" name="end_date" required className="input" /></Field>
@@ -74,7 +74,7 @@ export default async function Availability({ searchParams }: PageProps<"/barber/
             <button className="btn btn-ghost w-full">Add time off</button>
           </form>
           <div className="card p-6">
-            <h2 className="font-display text-lg font-semibold">Services you offer</h2>
+            <h2 className="font-display text-lg font-bold">Services you offer</h2>
             {!services.length ? <p className="mt-3 text-sm text-muted">None yet. The owner assigns services.</p> : (
               <div className="mt-3 flex flex-wrap gap-2">
                 {services.map((v) => <span key={v.name} className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold">{v.name}, {v.duration_min} min</span>)}

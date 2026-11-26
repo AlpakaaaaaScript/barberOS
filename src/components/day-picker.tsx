@@ -11,10 +11,10 @@ export function DayPicker({ selected, href }: { selected?: string; href: (day: s
         const d = new Date(`${v}T12:00:00`); // label from the shop-local date, safe in any server time zone
         return (
           <Link key={v} href={href(v)} scroll={false}
-            className={`flex w-16 shrink-0 flex-col items-center rounded-xl border py-2.5 transition-colors ${
+            className={`flex w-16 shrink-0 flex-col items-center rounded-[10px] border py-2.5 transition-colors ${
               on ? "border-ink bg-ink text-surface" : "border-line bg-surface hover:border-muted"}`}>
             <span className={`text-xs font-semibold ${on ? "text-surface/70" : "text-muted"}`}>{d.toLocaleDateString("en-GB", { weekday: "short" })}</span>
-            <span className="font-display text-xl font-semibold">{d.getDate()}</span>
+            <span className="font-display text-xl font-bold">{d.getDate()}</span>
             <span className={`text-xs ${on ? "text-surface/70" : "text-muted"}`}>{d.toLocaleDateString("en-GB", { month: "short" })}</span>
           </Link>
         );
@@ -24,7 +24,7 @@ export function DayPicker({ selected, href }: { selected?: string; href: (day: s
 }
 
 export function SlotGrid({ slots, name = "slot" }: { slots: string[]; name?: string }) {
-  if (!slots.length) return <p className="rounded-xl border border-dashed border-line px-4 py-6 text-center text-sm text-muted">No free slots on this day. Try another date.</p>;
+  if (!slots.length) return <p className="well px-4 py-6 text-sm text-muted">No free slots on this day. Try another date.</p>;
   return (
     <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-6">
       {slots.map((t, i) => (

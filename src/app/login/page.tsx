@@ -21,14 +21,14 @@ export default async function Login({ searchParams }: PageProps<"/login">) {
       </form>
       <p className="mt-6 text-center text-sm text-muted">New here? <Link href="/register" className="font-semibold text-ink underline underline-offset-4">Create a customer account</Link></p>
 
-      <div className="mt-10 rounded-xl border border-dashed border-line p-4">
+      <div className="well mt-10 p-4">
         <p className="text-sm font-semibold text-muted">Demo accounts (password: password123)</p>
         <div className="mt-3 grid gap-2">
           {DEMO.map(([role, email]) => (
             <form key={role} action={login}>
               <input type="hidden" name="email" value={email} />
               <input type="hidden" name="password" value="password123" />
-              <button className="flex min-h-11 w-full items-center justify-between rounded-lg bg-surface-2 px-3 py-2 text-left text-sm hover:bg-brand-soft">
+              <button className="flex min-h-11 w-full items-center justify-between rounded-[10px] bg-paper px-3 py-2 border border-line hover:border-ink text-left text-sm hover:bg-brand-soft">
                 <span className="font-semibold">{role}</span><span className="text-muted">{email}</span>
               </button>
             </form>

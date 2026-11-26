@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope, Balsamiq_Sans } from "next/font/google";
+import { Epilogue, IBM_Plex_Mono, Balsamiq_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 
-const serif = Fraunces({ variable: "--font-serif", subsets: ["latin"], weight: ["500", "600", "700"] });
-const ui = Manrope({ variable: "--font-ui", subsets: ["latin"] });
+const epilogue = Epilogue({ variable: "--font-epilogue", subsets: ["latin"], weight: ["400", "600", "700"] });
+const mono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400"] });
 const wire = Balsamiq_Sans({ variable: "--font-wire", subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const wf = (await cookies()).get("wf")?.value === "1";
   return (
-    <html lang="en" className={`${serif.variable} ${ui.variable} ${wire.variable} h-full antialiased ${wf ? "wf" : ""}`} data-theme={wf ? "wireframe" : undefined}>
+    <html lang="en" className={`${epilogue.variable} ${mono.variable} ${wire.variable} h-full ${wf ? "wf" : ""}`} data-theme={wf ? "wireframe" : undefined}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

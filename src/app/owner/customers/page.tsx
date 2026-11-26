@@ -1,5 +1,5 @@
-import { Search, Trash2 } from "lucide-react";
 import { sql } from "@/lib/db";
+import { Search, Trash2 } from "lucide-react";
 import { requireRole } from "@/lib/session";
 import { fmtDate, money } from "@/lib/format";
 import { Avatar, Badge, Flash, PageHeader } from "@/components/ui";

@@ -27,7 +27,7 @@ export default async function MyAppointments({ searchParams }: PageProps<"/custo
       <PageHeader title="My appointments" desc={`Reschedule or cancel up to ${shop.cancel_window_hours} hours before. Review visits once they’re complete.`}
         action={<Link href="/customer/book" className="btn btn-brand"><CalendarPlus size={16} /> New booking</Link>} />
       <Flash ok={sp.ok} error={sp.error} />
-      <div className="mb-5 inline-flex rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
+      <div className="mb-5 inline-flex rounded-[10px] border border-line bg-paper-2 p-1 text-sm font-semibold">
         {(["upcoming", "past"] as const).map((t) => (
           <Link key={t} href={`/customer/appointments?tab=${t}`} className={`rounded-lg px-4 py-1.5 capitalize ${tab === t ? "bg-ink text-surface" : "text-muted hover:text-ink"}`}>{t}</Link>
         ))}
@@ -41,7 +41,7 @@ export default async function MyAppointments({ searchParams }: PageProps<"/custo
           {rows.map((a) => (
             <div key={a.appointment_id} className="card flex flex-wrap items-center gap-4 p-5">
               <div className="w-24 shrink-0">
-                <p className="font-display text-lg font-semibold">{fmtTime(a.start_at)}</p>
+                <p className="font-display text-lg font-bold">{fmtTime(a.start_at)}</p>
                 <p className="text-xs text-muted">{fmtDate(a.start_at)}</p>
               </div>
               <div className="flex min-w-48 flex-1 items-center gap-3">
@@ -53,7 +53,7 @@ export default async function MyAppointments({ searchParams }: PageProps<"/custo
               </div>
               <div className="flex items-center gap-3">
                 {a.rating && <Stars value={a.rating} />}
-                <span className="font-display font-semibold">{money(a.price)}</span>
+                <span className="font-display font-bold">{money(a.price)}</span>
                 <Badge status={a.status} />
               </div>
               <div className="flex w-full justify-end gap-2 sm:w-auto">

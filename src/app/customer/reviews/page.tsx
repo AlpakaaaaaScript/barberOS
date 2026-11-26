@@ -1,5 +1,5 @@
-import { Star, Trash2 } from "lucide-react";
 import { sql } from "@/lib/db";
+import { Star, Trash2 } from "lucide-react";
 import { requireRole } from "@/lib/session";
 import { fmtDate } from "@/lib/format";
 import { Avatar, Empty, Flash, PageHeader, Stars } from "@/components/ui";
@@ -39,7 +39,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
 
       {pending.length > 0 && (
         <section className="mb-10">
-          <h2 className="mb-3 font-display text-lg font-semibold">Waiting for your review <span className="text-muted">({pending.length})</span></h2>
+          <h2 className="mb-3 font-display text-lg font-bold">Waiting for your review <span className="text-muted">({pending.length})</span></h2>
           <div className="grid gap-4 md:grid-cols-2">
             {pending.slice(0, 4).map((r) => (
               <form key={r.appointment_id} action={saveReview} className={`card p-5 ${r.appointment_id === focus ? "ring-2 ring-brand" : ""}`}>
@@ -57,7 +57,7 @@ export default async function Reviews({ searchParams }: PageProps<"/customer/rev
         </section>
       )}
 
-      <h2 className="mb-3 font-display text-lg font-semibold">Published reviews</h2>
+      <h2 className="mb-3 font-display text-lg font-bold">Published reviews</h2>
       {!done.length ? <Empty title="No reviews yet" desc="After your next visit you can rate your barber here." /> : (
         <div className="space-y-3">
           {done.map((r) => r.review_id === editing ? (

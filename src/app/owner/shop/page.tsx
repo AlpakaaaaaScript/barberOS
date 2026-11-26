@@ -14,10 +14,10 @@ export default async function ShopSettings({ searchParams }: PageProps<"/owner/s
     <>
       <PageHeader title="Shop information" desc="What customers see on the website, and the rules the booking system follows." />
       <Flash ok={sp.ok} error={sp.error} />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateShop} className="card space-y-6 p-6">
           <section className="space-y-4">
-            <h2 className="font-display text-lg font-semibold">Shop details</h2>
+            <h2 className="font-display text-lg font-bold">Shop details</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Shop name"><input name="name" required defaultValue={shop.name} className="input" /></Field>
               <Field label="Tagline"><input name="tagline" defaultValue={shop.tagline ?? ""} className="input" /></Field>
@@ -29,7 +29,7 @@ export default async function ShopSettings({ searchParams }: PageProps<"/owner/s
             </div>
           </section>
           <section className="space-y-4 border-t border-line pt-6">
-            <h2 className="font-display text-lg font-semibold">Booking rules</h2>
+            <h2 className="font-display text-lg font-bold">Booking rules</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Cancellation window (hours)" hint="Customers can’t cancel later than this before the start time.">
                 <input name="cancel_window_hours" type="number" min={0} max={72} required defaultValue={shop.cancel_window_hours} className="input" />
@@ -46,7 +46,7 @@ export default async function ShopSettings({ searchParams }: PageProps<"/owner/s
         </form>
 
         <aside className="card h-fit p-6">
-          <h2 className="font-display text-lg font-semibold">Opening hours</h2>
+          <h2 className="font-display text-lg font-bold">Opening hours</h2>
           <p className="mt-1 text-sm text-muted">Worked out from your barbers’ schedules.</p>
           <ul className="mt-4 divide-y divide-line text-sm">
             {hours.map((h) => (

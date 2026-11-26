@@ -22,7 +22,7 @@ export default async function Schedule({ searchParams }: PageProps<"/barber/sche
   return (
     <>
       <PageHeader title="Schedule" desc={past ? "Your last 7 days." : "Your next 14 days, including today."} />
-      <div className="mb-5 inline-flex rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
+      <div className="mb-5 inline-flex rounded-[10px] border border-line bg-paper-2 p-1 text-sm font-semibold">
         {[["upcoming", "Next 14 days", "/barber/schedule"], ["past", "Past 7 days", "/barber/schedule?range=past"]].map(([k, label, href]) => (
           <Link key={k} href={href} className={`rounded-lg px-4 py-1.5 ${(k === "past") === past ? "bg-ink text-surface" : "text-muted hover:text-ink"}`}>{label}</Link>
         ))}
@@ -31,13 +31,13 @@ export default async function Schedule({ searchParams }: PageProps<"/barber/sche
         <div className="space-y-6">
           {[...days].map(([day, list]) => (
             <section key={day}>
-              <h2 className="mb-2 font-display text-lg font-semibold">{fmtDateLong(`${day} 00:00:00`)}</h2>
+              <h2 className="mb-2 font-display text-lg font-bold">{fmtDateLong(`${day} 00:00:00`)}</h2>
               <div className="card divide-y divide-line">
                 {list.map((a) => (
                   <div key={a.appointment_id} className="flex flex-wrap items-center gap-4 px-5 py-3.5">
-                    <span className="w-24 shrink-0 font-display font-semibold">{fmtTime(a.start_at)}</span>
+                    <span className="w-24 shrink-0 font-display font-bold">{fmtTime(a.start_at)}</span>
                     <div className="min-w-48 flex-1"><p className="font-semibold">{a.customer_name}</p><p className="text-sm text-muted">{a.service_name}, {a.duration_min} min</p></div>
-                    <span className="font-display font-semibold">{money(a.price)}</span>
+                    <span className="font-display font-bold">{money(a.price)}</span>
                     <Badge status={a.status} />
                   </div>
                 ))}

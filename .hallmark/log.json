@@ -1,0 +1,30 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Split Studio (/) + app screens",
+  "theme": "ink",
+  "axes": "light/grotesk-sans/chromatic-teal",
+  "hero": "Banner",
+  "nav": "masthead",
+  "footer": "mast",
+  "imagery": "none (no library fit)",
+  "photos": [],
+  "entry": "/",
+  "signature": "next free chairs per barber, live from get_available_slots",
+  "sections": [
+   "hero",
+   "services switcher",
+   "steps notice",
+   "barbers ruled list",
+   "hours + find us",
+   "footer"
+  ],
+  "waived": [
+   "22"
+  ],
+  "prompt": "neighbourhood barbershop in Bangkok: book a barber and time; barbers run their day; owner manages the shop",
+  "date": "2026-11-26"
+ }
+]

@@ -15,11 +15,11 @@ export default async function Profile({ searchParams }: PageProps<"/barber/profi
     <>
       <PageHeader title="Profile" />
       <Flash ok={sp.ok} error={sp.error} />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateProfile} className="card space-y-4 p-6">
           <div className="mb-2 flex items-center gap-4">
             <Avatar name={me.full_name} size={56} />
-            <div><p className="font-display text-xl font-semibold">{me.full_name}</p><p className="text-sm text-muted">{me.email}</p></div>
+            <div><p className="font-display text-xl font-bold">{me.full_name}</p><p className="text-sm text-muted">{me.email}</p></div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Full name"><input name="full_name" defaultValue={me.full_name} required className="input" /></Field>
@@ -30,8 +30,8 @@ export default async function Profile({ searchParams }: PageProps<"/barber/profi
           <button className="btn btn-primary">Save profile</button>
         </form>
         <div className="card h-fit space-y-4 p-6">
-          <h2 className="font-display text-lg font-semibold">Employment</h2>
-          <div><p className="label">Commission rate</p><p className="font-display text-2xl font-semibold">{me.commission_rate}%</p></div>
+          <h2 className="font-display text-lg font-bold">Employment</h2>
+          <div><p className="label">Commission rate</p><p className="font-display text-2xl font-bold">{me.commission_rate}%</p></div>
           <div><p className="label">Hired on</p><p className="font-semibold">{me.hired_on}</p></div>
           <p className="text-xs text-muted">Set by the owner.</p>
         </div>

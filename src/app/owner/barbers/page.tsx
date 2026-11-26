@@ -33,7 +33,7 @@ export default async function Barbers({ searchParams }: PageProps<"/owner/barber
       {open && (
         <form action={editing ? updateBarber : createBarber} className="card mb-6 p-6 ring-2 ring-brand">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-xl font-semibold">{editing ? `Edit ${editing.full_name}` : "Add a new barber"}</h2>
+            <h2 className="font-display text-xl font-bold">{editing ? `Edit ${editing.full_name}` : "Add a new barber"}</h2>
             <Link href="/owner/barbers" className="btn btn-ghost btn-sm" aria-label="Close"><X size={14} /></Link>
           </div>
           {editing && <input type="hidden" name="id" value={editing.barber_id} />}

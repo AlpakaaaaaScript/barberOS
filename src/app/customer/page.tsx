@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Award, CalendarPlus, Clock, Scissors, Wallet } from "lucide-react";
 import { one, sql } from "@/lib/db";
 import { requireRole } from "@/lib/session";
 import { fmtDate, fmtDateLong, fmtTime, money } from "@/lib/format";
-import { Avatar, Badge, Flash, PageHeader, StatCard } from "@/components/ui";
+import { Badge, Flash, PageHeader } from "@/components/ui";
 import { getShop } from "@/lib/shop";
 
 type Appt = { appointment_id: number; start_at: string; status: string; service_name: string; barber_name: string; price: number; duration_min: number };
@@ -11,7 +10,7 @@ type Appt = { appointment_id: number; start_at: string; status: string; service_
 export default async function CustomerHome({ searchParams }: PageProps<"/customer">) {
   const s = await requireRole("customer");
   const { ok } = (await searchParams) as { ok?: string };
-  // SQL: customer summary — loyalty points, visit count, total spent
+  // SQL: customer summary: loyalty points, visit count, total spent
   const me = (await one<{ loyalty_points: number; visits: number; spent: number }>(
     `SELECT c.loyalty_points,
             count(p.payment_id) AS visits,
@@ -33,61 +32,62 @@ export default async function CustomerHome({ searchParams }: PageProps<"/custome
   return (
     <>
       <Flash ok={ok} />
-      <PageHeader title={`Hello, ${s.name.split(" ")[0]}`} desc="Here’s what’s coming up and how your loyalty points are growing."
-        action={<Link href="/customer/book" className="btn btn-brand"><CalendarPlus size={16} /> Book appointment</Link>} />
+      <PageHeader title={`Hello, ${s.name.split(" ")[0]}`}
+        action={<Link href="/customer/book" className="btn btn-primary">Book appointment</Link>} />
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Loyalty points" value={me.loyalty_points} sub={`${tier} member, 1 pt per ฿${shop.baht_per_point}`} icon={<Award size={18} />} />
-        <StatCard label="Visits" value={me.visits} sub="Completed appointments" icon={<Scissors size={18} />} />
-        <StatCard label="Total spent" value={money(me.spent)} sub="Including tips" icon={<Wallet size={18} />} />
-      </div>
-
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <section className="card overflow-hidden">
-          <div className="border-b border-line px-6 py-4"><h2 className="font-display text-lg font-semibold">Next appointment</h2></div>
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        {/* The next visit, set as the screen's one object */}
+        <section aria-labelledby="next-h">
+          <h2 id="next-h" className="text-xl">Your next visit</h2>
           {next ? (
-            <div className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="grid w-20 shrink-0 place-items-center rounded-xl bg-side py-3 text-side-ink">
-                  <span className="text-xs text-side-muted">{fmtDate(next.start_at).split(" ")[0]}</span>
-                  <span className="font-display text-3xl font-semibold">{fmtDate(next.start_at).split(" ")[1]}</span>
-                  <span className="text-xs text-side-muted">{fmtDate(next.start_at).split(" ")[2]}</span>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="font-display text-xl font-semibold">{next.service_name}</p>
-                  <p className="mt-1 flex items-center gap-1.5 text-sm text-muted"><Clock size={14} /> {fmtDateLong(next.start_at)}, {fmtTime(next.start_at)}, {next.duration_min} min</p>
-                  <div className="mt-3 flex items-center gap-2 text-sm"><Avatar name={next.barber_name} size={26} /> with <b>{next.barber_name}</b></div>
-                </div>
-                <span className="font-display text-xl font-semibold">{money(next.price)}</span>
+            <div className="mt-4 border-t border-ink pt-6">
+              <p className="font-display text-[clamp(2rem,4vw,3.25rem)] leading-none font-bold text-ink">{fmtDateLong(next.start_at)}</p>
+              <p className="mt-2 font-mono text-2xl text-ink">{fmtTime(next.start_at)}</p>
+              <dl className="mt-8 grid gap-6 border-t border-line pt-6 sm:grid-cols-3">
+                <div><dt className="text-sm text-muted">Service</dt><dd className="font-semibold text-ink">{next.service_name}</dd><dd className="text-sm text-muted">{next.duration_min} min</dd></div>
+                <div><dt className="text-sm text-muted">Barber</dt><dd className="font-semibold text-ink">{next.barber_name}</dd></div>
+                <div><dt className="text-sm text-muted">Price</dt><dd className="font-display text-xl font-bold text-ink tabular-nums">{money(next.price)}</dd></div>
+              </dl>
+              <div className="mt-8 flex flex-wrap gap-2">
+                <Link href={`/customer/appointments/${next.appointment_id}/reschedule`} className="btn">Reschedule</Link>
+                <Link href="/customer/appointments" className="btn">Manage bookings</Link>
               </div>
-              <div className="mt-6 flex gap-2">
-                <Link href={`/customer/appointments/${next.appointment_id}/reschedule`} className="btn btn-ghost btn-sm">Reschedule</Link>
-                <Link href="/customer/appointments" className="btn btn-ghost btn-sm">Manage bookings</Link>
-              </div>
+              <p className="mt-4 text-sm text-muted">Free cancellation up to {shop.cancel_window_hours} hours before.</p>
             </div>
           ) : (
-            <div className="p-6 text-sm text-muted">No upcoming bookings. <Link href="/customer/book" className="font-semibold text-ink underline">Book one now</Link>.</div>
+            <div className="well mt-4 p-6">
+              <p className="font-semibold text-ink">Nothing booked yet.</p>
+              <p className="mt-1 text-sm text-muted">Pick a service, a barber and a free time.</p>
+              <Link href="/customer/book" className="btn btn-primary mt-5">Book appointment</Link>
+            </div>
           )}
-        </section>
 
-        <section className="card overflow-hidden">
-          <div className="flex items-center justify-between border-b border-line px-6 py-4">
-            <h2 className="font-display text-lg font-semibold">Recent visits</h2>
-            <Link href="/customer/appointments" className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-ink">All <ArrowRight size={13} /></Link>
+          <div className="mt-14 flex flex-wrap items-end justify-between gap-2">
+            <h2 className="text-xl">Recent visits</h2>
+            <Link href="/customer/appointments" className="link text-sm">All appointments</Link>
           </div>
-          <ul>
+          <ul className="ruled mt-4">
             {recent.map((a) => (
-              <li key={a.appointment_id} className="flex items-center gap-3 border-b border-line px-6 py-3 last:border-0">
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold">{a.service_name}</p>
-                  <p className="text-xs text-muted">{fmtDate(a.start_at)}, {a.barber_name}</p>
-                </div>
+              <li key={a.appointment_id} className="flex items-center gap-4 py-3">
+                <span className="w-24 shrink-0 font-mono text-sm text-muted">{fmtDate(a.start_at)}</span>
+                <span className="min-w-0 flex-1 truncate"><b className="text-ink">{a.service_name}</b> <span className="text-muted">with {a.barber_name}</span></span>
                 <Badge status={a.status} />
               </li>
             ))}
-            {!recent.length && <li className="px-6 py-6 text-sm text-muted">No visits yet.</li>}
+            {!recent.length && <li className="py-6 text-sm text-muted">No visits yet.</li>}
           </ul>
         </section>
+
+        {/* Loyalty, in plain figures */}
+        <aside className="well h-fit divide-y divide-line">
+          <div className="p-5">
+            <p className="text-sm text-muted">Loyalty points</p>
+            <p className="font-display text-5xl font-bold text-ink tabular-nums">{me.loyalty_points}</p>
+            <p className="mt-1 text-sm text-muted">{tier} member, 1 point per ฿{shop.baht_per_point}</p>
+          </div>
+          <div className="p-5"><p className="text-sm text-muted">Visits</p><p className="font-display text-3xl font-bold text-ink tabular-nums">{me.visits}</p></div>
+          <div className="p-5"><p className="text-sm text-muted">Spent, tips included</p><p className="font-display text-3xl font-bold text-ink tabular-nums">{money(me.spent)}</p></div>
+        </aside>
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Banknote, Coins, Percent, Scissors, Wallet } from "lucide-react";
 import { one, sql } from "@/lib/db";
 import { requireRole } from "@/lib/session";
 import { fmtDate, isoDay, money } from "@/lib/format";
@@ -44,24 +43,24 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
   return (
     <>
       <PageHeader title="Earnings & reviews" desc="Commission applies to service revenue; tips are 100% yours." />
-      <div className="mb-6 inline-flex flex-wrap rounded-xl border border-line bg-surface p-1 text-sm font-semibold">
+      <div className="mb-6 inline-flex flex-wrap rounded-[10px] border border-line bg-paper-2 p-1 text-sm font-semibold">
         {RANGES.map(([k, label]) => (
           <Link key={k} href={`/barber/earnings?range=${k}`} className={`rounded-lg px-4 py-1.5 ${range === k ? "bg-ink text-surface" : "text-muted hover:text-ink"}`}>{label}</Link>
         ))}
       </div>
       <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <StatCard label="Visits" value={e.visits} icon={<Scissors size={16} />} />
-        <StatCard label="Service revenue" value={money(e.revenue)} icon={<Banknote size={16} />} />
-        <StatCard label="Commission rate" value={`${rate}%`} icon={<Percent size={16} />} />
-        <StatCard label="Commission earned" value={money(e.commission)} icon={<Coins size={16} />} />
-        <StatCard label="Tips" value={money(e.tips)} icon={<Coins size={16} />} />
-        <StatCard label="Take-home" value={money(e.take_home)} sub="commission + tips" icon={<Wallet size={16} />} />
+        <StatCard label="Visits" value={e.visits} />
+        <StatCard label="Service revenue" value={money(e.revenue)} />
+        <StatCard label="Commission rate" value={`${rate}%`} />
+        <StatCard label="Commission earned" value={money(e.commission)} />
+        <StatCard label="Tips" value={money(e.tips)} />
+        <StatCard label="Take-home" value={money(e.take_home)} sub="commission + tips" />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="card p-6">
           <div className="flex items-end justify-between">
-            <h2 className="font-display text-lg font-semibold">Daily take-home, last 14 days</h2>
+            <h2 className="font-display text-lg font-bold">Daily take-home, last 14 days</h2>
             <span className="text-sm text-muted">{money(daily.reduce((a, d) => a + d.take_home, 0))}</span>
           </div>
           <div className="mt-6 flex h-52 items-end gap-[2px]" role="img" aria-label="Daily take-home for the last 14 days">
@@ -79,7 +78,7 @@ export default async function Earnings({ searchParams }: PageProps<"/barber/earn
 
         <section className="card p-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-semibold">Recent reviews</h2>
+            <h2 className="font-display text-lg font-bold">Recent reviews</h2>
             <span className="flex items-center gap-2 text-sm text-muted"><Stars value={Number(stats?.avg_rating ?? 0)} /> {Number(stats?.avg_rating ?? 0).toFixed(1)} ({stats?.review_count ?? 0})</span>
           </div>
           {!reviews.length ? <Empty title="No reviews yet" desc="Customers can review you after a completed visit." /> : (

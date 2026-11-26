@@ -15,11 +15,11 @@ export default async function Profile({ searchParams }: PageProps<"/customer/pro
     <>
       <PageHeader title="Profile & settings" />
       <Flash ok={sp.ok} error={sp.error} />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <form action={updateProfile} className="card space-y-4 p-6">
           <div className="mb-2 flex items-center gap-4">
             <Avatar name={me.full_name} size={56} />
-            <div><p className="font-display text-xl font-semibold">{me.full_name}</p><p className="text-sm text-muted">Member since {me.created_at.slice(0, 10)}, {me.loyalty_points} pts</p></div>
+            <div><p className="font-display text-xl font-bold">{me.full_name}</p><p className="text-sm text-muted">Member since {me.created_at.slice(0, 10)}, {me.loyalty_points} pts</p></div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Full name"><input name="full_name" defaultValue={me.full_name} required className="input" /></Field>
@@ -32,13 +32,13 @@ export default async function Profile({ searchParams }: PageProps<"/customer/pro
 
         <div className="space-y-6">
           <form action={changePassword} className="card space-y-4 p-6">
-            <h2 className="font-display text-lg font-semibold">Change password</h2>
+            <h2 className="font-display text-lg font-bold">Change password</h2>
             <Field label="Current password"><input name="current" type="password" required className="input" /></Field>
             <Field label="New password"><input name="new" type="password" minLength={6} required className="input" /></Field>
             <button className="btn btn-ghost w-full">Update password</button>
           </form>
           <form action={deleteAccount} className="card border-bad/30 p-6">
-            <h2 className="font-display text-lg font-semibold text-bad">Delete account</h2>
+            <h2 className="font-display text-lg font-bold text-bad">Delete account</h2>
             <p className="mt-1 text-sm text-muted">Removes your profile, bookings and reviews permanently.</p>
             <label className="mt-4 flex items-center gap-2 text-sm"><input type="checkbox" required /> I understand this can’t be undone</label>
             <button className="btn btn-danger mt-3 w-full">Delete my account</button>

@@ -30,7 +30,7 @@ export default async function Services({ searchParams }: PageProps<"/owner/servi
       {open && (
         <form action={saveService} className="card mb-6 p-6 ring-2 ring-brand">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-xl font-semibold">{editing ? `Edit ${editing.name}` : "New service"}</h2>
+            <h2 className="font-display text-xl font-bold">{editing ? `Edit ${editing.name}` : "New service"}</h2>
             <Link href="/owner/services" className="btn btn-ghost btn-sm" aria-label="Close"><X size={14} /></Link>
           </div>
           <input type="hidden" name="id" value={editing?.service_id ?? 0} />
@@ -58,7 +58,7 @@ export default async function Services({ searchParams }: PageProps<"/owner/servi
             {rows.map((s) => (
               <tr key={s.service_id} className={s.is_active ? "" : "opacity-60"}>
                 <td><b className="block">{s.name}</b><span className="text-xs text-muted">{s.description}</span></td>
-                <td><span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-ink">{s.category}</span></td>
+                <td><span className="tag">{s.category}</span></td>
                 <td className="text-right tabular-nums">{s.duration_min} min</td>
                 <td className="text-right font-semibold tabular-nums">{money(s.price)}</td>
                 <td className="text-right tabular-nums">{s.barbers}</td>
