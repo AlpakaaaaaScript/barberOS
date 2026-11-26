@@ -8,7 +8,7 @@ types.setTypeParser(1700, (v) => Number(v));
 types.setTypeParser(20, (v) => Number(v));
 
 const g = globalThis as unknown as { pool?: Pool };
-const pool = (g.pool ??= new Pool({ connectionString: process.env.DATABASE_URL }));
+const pool = (g.pool ??= new Pool({ connectionString: process.env.DATABASE_URL, max: 5 }));
 
 export async function sql<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
   return (await pool.query(text, params)).rows as T[];
